@@ -7,4 +7,4 @@ spec:
     kind: Service
     name: nginx-demo
   port:
-    targetPort: 8080
+    targetPort: 80
