@@ -98,7 +98,6 @@ data:
             replacement: blackbox-exporter.monitoring-demo.svc:9115
 
 #Guarda la configuración de Prometheus. Aquí defines qué scrapea.
-
 #Este ejemplo:
 
 #scrapea a Prometheus
