@@ -17,9 +17,9 @@ spec:
         prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: prometheus
+      hostUsers: false
       securityContext:
         runAsNonRoot: true
-        fsGroup: 65534
         seccompProfile:
           type: RuntimeDefault
       containers:
