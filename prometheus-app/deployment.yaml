@@ -61,6 +61,7 @@ spec:
 
 #Despliega el pod de Prometheus usando:
 
+
 #la imagen
 #el ConfigMap
 #el PVC
