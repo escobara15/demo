@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blackbox-exporter
+  template:
+    metadata:
+      labels:
+        app: blackbox-exporter
+    spec:
+      serviceAccountName: prometheus
+      containers:
+        - name: blackbox-exporter
+          image: quay.io/prometheus/blackbox-exporter:latest
+          args:
+            - --config.file=/etc/blackbox/blackbox.yml
+          ports:
+            - containerPort: 9115
+              name: http
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /etc/blackbox
+      volumes:
+        - name: config
+          configMap:
+            name: blackbox-config
+
+
+# Despliega el blackbox exporter
+# El despliegue se llama "blackbox-exporter" y se ejecuta con una réplica. El contenedor utiliza la imagen oficial de Prometheus Blackbox Exporter y se configura para usar un archivo de configuración montado desde un ConfigMap llamado "blackbox-config".
+# El contenedor expone el puerto 9115 para las comprobaciones HTTP. Además, se establecen políticas de seguridad para el contenedor, como no permitir la escalada de privilegios y eliminar todas las capacidades adicionales.

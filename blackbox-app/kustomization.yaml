@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - configmap.yaml
+  - deployment.yaml
+  - service.yaml
+
+# Kustomization para el blackbox exporter
+# Este archivo Kustomization se utiliza para gestionar los recursos relacionados con el blackbox exporter. Incluye un ConfigMap para la configuración del blackbox exporter, un Deployment para desplegar el contenedor del blackbox exporter, y un Service para exponer el servicio dentro del clúster.
+# Al utilizar Kustomize, se facilita la gestión y personalización de estos recursos en diferentes entornos.

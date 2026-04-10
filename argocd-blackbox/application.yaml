@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blackbox-demo
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/escobara15/demo.git
+    targetRevision: main
+    path: blackbox-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring-demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
+# Argo CD desplegará blackbox en monitoring-demo

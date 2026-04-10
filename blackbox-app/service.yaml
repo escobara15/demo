@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blackbox-exporter
+spec:
+  selector:
+    app: blackbox-exporter
+  ports:
+    - name: http
+      port: 9115
+      targetPort: http
+
+
+# Define un servicio para el blackbox exporter
+# Expone blackbox dentro del clúster
+# El servicio se llama "blackbox-exporter" y selecciona los pods etiquetados con "app: blackbox-exporter". El servicio expone el puerto 9115, que es el puerto utilizado por el contenedor del blackbox exporter para las comprobaciones HTTP. El puerto de destino también se llama "http", lo que coincide con el nombre del puerto definido en el contenedor del despliegue.
