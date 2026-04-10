@@ -17,7 +17,6 @@ spec:
         prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: prometheus
-      hostUsers: false
       securityContext:
         runAsNonRoot: true
         seccompProfile:
@@ -58,7 +57,6 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: prometheus-data
-
 #Despliega el pod de Prometheus usando:
 
 
