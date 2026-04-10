@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: grafana
+spec:
+  to:
+    kind: Service
+    name: grafana
+  port:
+    targetPort: http
+
+
+# Esta Route expone el servicio de Grafana a través de una URL accesible desde fuera del cluster.

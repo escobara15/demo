@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+spec:
+  selector:
+    app: grafana
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+
+# Este Service expone el puerto 3000 del Deployment de Grafana, permitiendo el acceso a la interfaz web de Grafana.
+# El selector app: grafana asegura que el tráfico se dirija a los pods etiquetados con app: grafana, que es el caso del Deployment definido en deployment.yaml.

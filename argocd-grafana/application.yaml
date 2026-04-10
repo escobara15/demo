@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-demo
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/escobara15/demo.git
+    targetRevision: main
+    path: grafana-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring-demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+  # Esta aplicación de ArgoCD define una aplicación llamada "grafana-demo" que se despliega en el namespace "monitoring-demo" del cluster de Kubernetes.
+  # La aplicación se sincroniza automáticamente con el repositorio Git especificado, utilizando la rama "main" y la ruta "grafana-app" para encontrar los manifiestos de Kubernetes.
+  # La política de sincronización automática permite que ArgoCD mantenga la aplicación en el estado deseado, realizando acciones de prune para eliminar recursos que ya no están definidos en el repositorio y selfHeal para corregir cualquier desviación del estado deseado.
+  

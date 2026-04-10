@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - serviceaccount.yaml
+  - secret.yaml
+  - datasource-configmap.yaml
+  - deployment.yaml
+  - service.yaml
+  - route.yaml
+
+# Este archivo kustomization.yaml define los recursos que se utilizarán para desplegar la aplicación de Grafana en OpenShift.
+# Incluye un ServiceAccount para Grafana, un Secret para las credenciales de administrador, un ConfigMap para la configuración de las fuentes de datos, un Deployment para la aplicación de Grafana, un Service para exponer el puerto 3000 y una Route para hacer accesible Grafana desde fuera del cluster.

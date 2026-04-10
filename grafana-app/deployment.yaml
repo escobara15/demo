@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      serviceAccountName: grafana
+      containers:
+        - name: grafana
+          image: grafana/grafana
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-secret
+                  key: GF_SECURITY_ADMIN_USER
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-secret
+                  key: GF_SECURITY_ADMIN_PASSWORD
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+            - name: grafana-datasources
+              mountPath: /etc/grafana/provisioning/datasources
+      volumes:
+        - name: grafana-storage
+          emptyDir: {}
+        - name: grafana-datasources
+          configMap:
+            name: grafana-datasources
+
+# Este Deployment define una aplicación de Grafana con un contenedor que utiliza la imagen oficial de Grafana.
+# El contenedor expone el puerto 3000 y utiliza variables de entorno para configurar el usuario administrador a través de un Secret.
+# Además, monta un volumen para el almacenamiento de datos de Grafana y otro volumen para la configuración de las fuentes de datos a través de un ConfigMap.
+# El ServiceAccount especificado permite asignar permisos específicos a Grafana mediante RoleBinding o ClusterRoleBinding.
+# El volumen grafana-datasources monta el ConfigMap grafana-datasources en la ruta /etc/grafana/provisioning/datasources, lo que permite que Grafana arranque con la configuración de Prometheus ya definida.
