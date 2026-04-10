@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-demo
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/escobara15/demo.git
+    targetRevision: main
+    path: prometheus-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring-demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+  #Define en Argo CD la aplicación prometheus-demo. Argo leerá la carpeta prometheus-app del repo y desplegará en monitoring-demo.
+  #Al aplicar esta aplicación, Argo CD se encargará de crear el ServiceAccount, ConfigMap, PVC, Deployment, Service y Route de Prometheus. Además, con la política de sincronización automática, Argo CD mantendrá el estado deseado de la aplicación, corrigiendo cualquier desviación.
+  

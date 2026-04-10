@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: prometheus
+spec:
+  to:
+    kind: Service
+    name: prometheus
+  port:
+    targetPort: http
+  
+#Crea una Route para exponer Prometheus fuera del clúster. Esto es opcional, pero útil para acceder a la UI desde tu navegador.
+#Publica la UI de Prometheus fuera del clúster.

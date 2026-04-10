@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+    prometheus.io/path: "/metrics"
+spec:
+  selector:
+    app: prometheus
+  ports:
+    - name: http
+      port: 9090
+      targetPort: http
+  
+#Expone el servicio de Prometheus para que pueda ser scrapeado. También se puede usar para acceder a la UI.
+#Expone Prometheus dentro del clúster para que puedas acceder desde Grafana y también por Route.
